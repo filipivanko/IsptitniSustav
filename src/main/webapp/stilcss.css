@@ -1,7 +1,14 @@
 
 #naslovnaSlika{
     width:960px;
+    margin:auto; 
+}
+#jedansupac{
+    width:960px;
+    height:300px;
     margin:auto;
-    height:10px; 
+    background-color:lightgray;
+    border-radius:20px;
+    
 }
 
