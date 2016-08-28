@@ -12,7 +12,12 @@
         </div >
         
         <div id="jedansupac">
-            
+            <form action="PrijavaServlet" method="post">
+                <fieldset>
+                    <input type="text" name="korisnickoime" /><br/>                    
+                    <input type="password" name="lozinka">
+                </fieldset>
+            </form>
         </div>
         
     </body>
