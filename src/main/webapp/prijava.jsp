@@ -14,8 +14,11 @@
         <div id="jedansupac">
             <form action="PrijavaServlet" method="post">
                 <fieldset>
-                    <input type="text" name="korisnickoime" /><br/>                    
-                    <input type="password" name="lozinka">
+                    <legend>
+                        Prijavite se
+                    </legend>
+                    Korisničko ime <input type="text" name="korisnickoime" /><br/>                    
+                   Zaporka <input type="password" name="lozinka">
                 </fieldset>
             </form>
         </div>
