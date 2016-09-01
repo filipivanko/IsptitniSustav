@@ -7,10 +7,20 @@
         <title>Prijava</title>
     </head>
     <body>
-        <div id="naslovnaSlika">
+    
+        <div id="headder">
+            <div id="pozadinanaslova">
+                
+            </div>
+        <div id="naslov">  
+            Ispitni Sustav 
+        </div>
+        <div id="naslovnaSlika"> 
             <img src="images/testiranje.jpg"/>
         </div >
 
+        </div>
+        
         <div id="jedansupac">   
             
             <div id="loginforma">
@@ -28,6 +38,9 @@
                             <tr>
                                 <td> Zaporka </td>
                                 <td>  <input type="password" name="zaporka" id="zaporka"></td>
+                            </tr>
+                             <tr>
+                                 <td colspan="2"> <input type="submit" value="Prijavi se"/> </td>
                             </tr>
                         </table>                 
                     </fieldset>

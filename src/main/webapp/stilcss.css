@@ -1,10 +1,31 @@
 
-#naslovnaSlika{
+#headder{
     width:960px;
     margin:auto; 
     margin-top: 20px;
 }
-
+#naslov{
+    position: relative;
+    font-size:64px;
+    margin-bottom:-30px; 
+    z-index: 1;
+    font-family: serif;
+    margin-left:20px; 
+    color:white;
+}
+#pozadinanaslova{
+    height:75px;
+    width:370px;
+    background-color:#444;
+    opacity: 0.7;
+    margin-left: 10px;
+    margin-bottom: -80px;
+    border-radius:8px;
+    
+}
+#naslovnaSlika{
+    z-index: -1;
+}
 #jedansupac{
     width:960px;
     height:300px;
@@ -30,4 +51,3 @@
 #tablicaZaPrijavu{
     margin:auto;
 }
-
