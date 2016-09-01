@@ -3,12 +3,29 @@
     width:960px;
     margin:auto; 
 }
+
 #jedansupac{
     width:960px;
     height:300px;
     margin:auto;
     background-color:lightgray;
-    border-radius:20px;
-    
+    border-radius:20px; 
+    margin-bottom: 0px;
+}
+
+#loginforma{
+    height: 200px;
+    text-align: center;
+    width:360px;
+    margin-left:300px;
+    margin-top:85px;
+    float:left;
+}
+
+#zaporka, #korisnickoIme{
+    width:200px;
+}
+#tablicaZaPrijavu{
+    margin:auto;
 }
 
