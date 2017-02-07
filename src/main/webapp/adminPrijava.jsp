@@ -3,18 +3,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <%@taglib prefix="is" uri="/WEB-INF/tlds/ispitniSustavTagovi.tld" %>
         <link rel="stylesheet" type="text/css" href="stilcss.css"/>
+         <%@taglib prefix="is" uri="WEB-INF/tlds/ispitniSustavTagovi.tld" %>
         <title>Prijava</title>
     </head>
     <body>
-    
-        <is:korisnikHeadder/>
-        
+        <is:adminHeadder/>
         <div id="jedansupac">   
             
             <div id="loginforma">
-                <form action="PrijavaServlet" method="post" >
+                <form action="AdminPrijavaServlet" method="post" >
 
                     <fieldset>
                         <legend>
@@ -36,12 +34,11 @@
                     </fieldset>
                 </form>  
 
-            </div> 
-            
-            
+            </div>
         </div>
-        <div id ="footer">
-              <a href="adminPrijava.jsp">Prijava Admin</a>  
+   <div id ="footer">
+              <a href="korisnikPrijava.jsp">Prijava Korisnik</a>  
             </div>
     </body>
 </html>
+

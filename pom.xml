@@ -57,16 +57,20 @@
             <artifactId>tomcat-jsp-api</artifactId>
             <version>7.0.70</version>
         </dependency>
+        
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.3.11.Final</version>
+        </dependency>
     </dependencies>
     <profiles>
         <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be used when 
-            invoking mvn. -->
-            <!-- Use this profile for any OpenShift specific customization your app 
-            will need. -->
-            <!-- By default that is to put the resulting archive into the 'webapps' 
-            folder. -->
-            <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
             <id>openshift</id>
             <build>
                 <finalName>ispitnisustav</finalName>
