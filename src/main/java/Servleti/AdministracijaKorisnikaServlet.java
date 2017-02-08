@@ -57,7 +57,7 @@ public class AdministracijaKorisnikaServlet extends HttpServlet {
                 session.setAttribute("odabraniKorisnk", sviKorisnici.toArray()[0]);
             }
 
-    }
+    }      
 response.sendRedirect("upravljanjeKorisnicima.jsp");
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

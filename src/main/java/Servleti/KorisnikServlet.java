@@ -3,6 +3,7 @@ package Servleti;
 import DAO.DohvatiRepozitorijFactory;
 import DAO.Repozitorij;
 import DAO.RepozitorijFactoriy;
+import Helper.PronalazacIzvoraRequesta;
 import Model.InstancaGrupePitanja;
 import Model.InstancaIspita;
 import Model.InstancaOdgovora;
@@ -28,6 +29,9 @@ public class KorisnikServlet extends HttpServlet {
         
         Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
         if (korisnik != null) {
+            PronalazacIzvoraRequesta r = new PronalazacIzvoraRequesta(); 
+            String iz = request.getRequestURI();
+            String s =  r.nadjiIzvor(request);
             Korisnik azuriraniKorsinK = repo.dohvatiKorisnikaPoIDu(korisnik.getIDKorisnik());
             List<InstancaIspita> instanceIspitaKorisnika = repo.dohvatiKorisnikoveInstanceIspita(korisnik);
 

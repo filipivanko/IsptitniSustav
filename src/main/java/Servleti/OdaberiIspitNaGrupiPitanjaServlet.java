@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Servleti;
 
 import DAO.DohvatiRepozitorijFactory;
@@ -10,7 +5,6 @@ import DAO.Repozitorij;
 import DAO.RepozitorijFactoriy;
 import Model.Ispit;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +18,8 @@ public class OdaberiIspitNaGrupiPitanjaServlet extends HttpServlet {
         if (request.getParameter("IDOdabraniIspit") != null) {
 
             int IDodabranaiIspit = Integer.parseInt(request.getParameter("IDOdabraniIspit"));
-             RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
-        Repozitorij repo =repoFactoriy.stvoriRepozitorij();
+            RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
+            Repozitorij repo = repoFactoriy.stvoriRepozitorij();
             Ispit ispit = repo.dohvatiIspitPoIDu(IDodabranaiIspit);
             request.getSession().setAttribute("odabraniIspit", ispit);
         }
