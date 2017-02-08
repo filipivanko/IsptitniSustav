@@ -15,14 +15,16 @@ public class OdaberiKorisnikaGrupaStranicaServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
      if(request.getParameter("IDodabraniKorisnik")!=null){
         int IDodabraniKorisnik = Integer.parseInt(request.getParameter("IDodabraniKorisnik"));
       
          RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
         Repozitorij repo =repoFactoriy.stvoriRepozitorij();
         
-        Korisnik odabraniKorisnki = repo.dohvatiKorisnikaPoIDu(IDodabraniKorisnik);
-        request.getSession().setAttribute("odabraniKorisnk", odabraniKorisnki);
+        Korisnik odabraniKorisnik = repo.dohvatiKorisnikaPoIDu(IDodabraniKorisnik);
+        request.getSession().setAttribute("odabraniKorisnk", odabraniKorisnik);
+        request.getSession().setAttribute("korisnik", odabraniKorisnik);
         
      }
         response.sendRedirect("GrupaAdminServlet");
