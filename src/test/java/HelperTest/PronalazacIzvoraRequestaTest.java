@@ -11,7 +11,6 @@ import static org.mockito.Mockito.*;
  * @author Filip
  */
 public class PronalazacIzvoraRequestaTest {
-
     @Test
     public void nadjiIzvorTest() {
         String rezultat;

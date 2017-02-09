@@ -20,15 +20,15 @@ import Model.Pitanje;
 import com.sun.media.sound.ModelAbstractChannelMixer;
 import java.util.ArrayList;
 import java.util.List;
-import static org.mockito.Mockito.mock;
-import org.mockito.MockitoAnnotations;
+import static org.mockito.Mockito.*;
+
 
 /**
  *
  * @author Filip
  */
 public class MockRepozitorij implements Repozitorij {
-
+    static Admin StatickiAdmin = new Admin("korisnickoIme", "zaporka", "root", new Kompanija());
     @Override
     public void otvoriSession() {
 
@@ -76,7 +76,14 @@ public class MockRepozitorij implements Repozitorij {
 
     @Override
     public Admin dohvatiAdminaPoKorisnickomImenu(String korisnickoIme) {
-        return mock(Model.Admin.class);
+        Admin admin = mock(Admin.class);
+        Kompanija kompanija  = mock(Kompanija.class);
+        when(admin.getKorisnickoIme()).thenReturn("PostojectAdmin");
+        when(admin.getZaporka()).thenReturn("IspravnaZaporka");
+        when(admin.getZaporka()).thenReturn("IspravnaZaporka");
+        when(admin.getKompanija()).thenReturn(kompanija);
+        when(admin.getRazinaovlasti()).thenReturn(StatickiAdmin.getRazinaovlasti());
+        return admin;
     }
 
     @Override
@@ -172,7 +179,10 @@ public class MockRepozitorij implements Repozitorij {
 
     @Override
     public Korisnik dohvatiKorisnikaPoKorisnickomImenu(String korisnickoIme) {
-        return mock(Model.Korisnik.class);
+        Korisnik korisnik = mock(Model.Korisnik.class);
+        when(korisnik.getKorisnickoIme()).thenReturn("PostojectKorisnik");
+        when(korisnik.getZaporka()).thenReturn("IspravnaZaporka");
+        return korisnik;
     }
 
     @Override
@@ -195,6 +205,9 @@ public class MockRepozitorij implements Repozitorij {
     @Override
     public InstancaOdgovora dohvatiInstancuOdgovoraPoIDu(int idOdabraneInstanceOdgovora) {
          return mock(Model.InstancaOdgovora.class);
+    }
+    public void setAdnminRazinaOvlasti (String s){
+    StatickiAdmin.setRazinaovlasti(s);
     }
 
 }

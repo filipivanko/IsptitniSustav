@@ -18,11 +18,8 @@ import javax.servlet.http.HttpSession;
  * @author Filip
  */
 public class PrijavaAdminaUSustav {
-    public String PrijaviAdmina(HttpServletRequest request){
+    public String PrijaviAdmina(HttpServletRequest request,Repozitorij repo){
     
-     RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
-        Repozitorij repo =repoFactoriy.stvoriRepozitorij();
-
         String korisnickoIme = request.getParameter("korisnickoIme");
         String zaporka = request.getParameter("zaporka");
         

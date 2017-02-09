@@ -22,8 +22,10 @@ public class AdminPrijavaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
+        Repozitorij repo =repoFactoriy.stvoriRepozitorij();
         PrijavaAdminaUSustav prijava = new PrijavaAdminaUSustav();
-        response.sendRedirect(prijava.PrijaviAdmina(request));
+        response.sendRedirect(prijava.PrijaviAdmina(request,repo));
     }
 
 
