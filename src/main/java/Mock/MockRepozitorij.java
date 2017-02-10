@@ -28,7 +28,11 @@ import static org.mockito.Mockito.*;
  * @author Filip
  */
 public class MockRepozitorij implements Repozitorij {
-    static Admin StatickiAdmin = new Admin("korisnickoIme", "zaporka", "root", new Kompanija());
+    Admin admin = mock(Admin.class);
+    Kompanija kompanija = mock(Kompanija.class);
+    Grupa grupa = mock(Grupa.class);
+    Korisnik korisnik = mock(Korisnik.class);
+
     @Override
     public void otvoriSession() {
 
@@ -76,13 +80,6 @@ public class MockRepozitorij implements Repozitorij {
 
     @Override
     public Admin dohvatiAdminaPoKorisnickomImenu(String korisnickoIme) {
-        Admin admin = mock(Admin.class);
-        Kompanija kompanija  = mock(Kompanija.class);
-        when(admin.getKorisnickoIme()).thenReturn("PostojectAdmin");
-        when(admin.getZaporka()).thenReturn("IspravnaZaporka");
-        when(admin.getZaporka()).thenReturn("IspravnaZaporka");
-        when(admin.getKompanija()).thenReturn(kompanija);
-        when(admin.getRazinaovlasti()).thenReturn(StatickiAdmin.getRazinaovlasti());
         return admin;
     }
 
@@ -99,7 +96,7 @@ public class MockRepozitorij implements Repozitorij {
 
     @Override
     public Kompanija dohvatiKompanijuPoIDu(int IDodabranaKompanija) {
-        return mock(Model.Kompanija.class);
+        return kompanija;
     }
 
     @Override
@@ -119,7 +116,7 @@ public class MockRepozitorij implements Repozitorij {
 
     @Override
     public Grupa dohvatiGrupuPoIDu(int idGrupa) {
-        return mock(Model.Grupa.class);
+        return grupa;
     }
 
     @Override
@@ -169,7 +166,7 @@ public class MockRepozitorij implements Repozitorij {
 
     @Override
     public Korisnik dohvatiKorisnikaPoIDu(int IDodabraniKorisnik) {
-        return mock(Model.Korisnik.class);
+        return korisnik;
     }
 
     @Override
@@ -179,9 +176,6 @@ public class MockRepozitorij implements Repozitorij {
 
     @Override
     public Korisnik dohvatiKorisnikaPoKorisnickomImenu(String korisnickoIme) {
-        Korisnik korisnik = mock(Model.Korisnik.class);
-        when(korisnik.getKorisnickoIme()).thenReturn("PostojectKorisnik");
-        when(korisnik.getZaporka()).thenReturn("IspravnaZaporka");
         return korisnik;
     }
 
@@ -206,8 +200,4 @@ public class MockRepozitorij implements Repozitorij {
     public InstancaOdgovora dohvatiInstancuOdgovoraPoIDu(int idOdabraneInstanceOdgovora) {
          return mock(Model.InstancaOdgovora.class);
     }
-    public void setAdnminRazinaOvlasti (String s){
-    StatickiAdmin.setRazinaovlasti(s);
-    }
-
 }

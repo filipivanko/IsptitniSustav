@@ -21,7 +21,7 @@ public class UpraviteljKorisnicima {
 
             Grupa odabranaGrupaUSessionu = (Grupa) session.getAttribute("odabranaGrupa");
 
-            if (odabranaGrupaUSessionu != null) {
+            if (odabranaGrupaUSessionu != null){
                 Grupa odabranaAzuriranaGrupa = repo.dohvatiGrupuPoIDu(odabranaGrupaUSessionu.getIDGrupa());
                 session.setAttribute("odabranaGrupa", odabranaAzuriranaGrupa);
             }
