@@ -6,6 +6,7 @@ import DAO.RepozitorijFactoriy;
 import Model.Admin;
 import Model.Grupa;
 import Model.Kompanija;
+import PoslovnaLogika.DodavacAdminaGrupe;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -17,32 +18,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class DodajAdminaGrupaServlet extends HttpServlet {
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Grupa grupa = (Grupa) request.getSession().getAttribute("odabranaGrupa");
-        Kompanija kompanija = (Kompanija) request.getSession().getAttribute("odabranaKompanija");
-         RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
-        Repozitorij repo =repoFactoriy.stvoriRepozitorij();
-        if (grupa != null && kompanija != null) {
-
-            HttpSession session = request.getSession();
-
-            String korisnickoIme = request.getParameter("korisnickoIme");
-            String zaporka = request.getParameter("zaporka");
-            Admin noviAdmin = new Admin(korisnickoIme, zaporka, "grupa", kompanija);
-            kompanija.getAdminiKompanije().add(noviAdmin);
-
-            repo.otvoriSession();
-
-            repo.spremiRucnoBezOtvaranjaIZatvaranja(noviAdmin);
-            repo.promjeniRucnoBezOtvaranjaIZatvaranja(kompanija);
-            repo.zatvoriSession();
-
-            request.getSession().setAttribute("odabraniAdminGrupa", noviAdmin);
-        }
-
+        
+        RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
+        Repozitorij repo = repoFactoriy.stvoriRepozitorij();
+        DodavacAdminaGrupe dodavac = new DodavacAdminaGrupe();
+        dodavac.dodajAdmina(request, repo);
+        
         response.sendRedirect("KompanijaAdminServlet");
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
