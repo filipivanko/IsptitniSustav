@@ -1,4 +1,3 @@
-
 package Servleti;
 
 import DAO.DohvatiRepozitorijFactory;
@@ -7,6 +6,7 @@ import DAO.RepozitorijFactoriy;
 import Model.Grupa;
 import Model.Kompanija;
 import Model.Korisnik;
+import PoslovnaLogika.UpraviteljKorisnicima;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -17,49 +17,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 public class AdministracijaKorisnikaServlet extends HttpServlet {
-
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
+        Repozitorij repo = repoFactoriy.stvoriRepozitorij();
         
-         RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
-        Repozitorij repo =repoFactoriy.stvoriRepozitorij();
-        HttpSession session = request.getSession();
-
-        Kompanija odabranaKompanijaUSessionu = (Kompanija) session.getAttribute("odabranaKompanija");
-        if (odabranaKompanijaUSessionu != null) {
-
-            Kompanija azuriranaKompanija = repo.dohvatiKompanijuPoIDu(odabranaKompanijaUSessionu.getIDKompanija());
-            List<Grupa> sveGrupe = (List<Grupa>) azuriranaKompanija.getGrupeUKompaniji();
-            session.setAttribute("odabranaKompanija", azuriranaKompanija);
-
-            Grupa odabranaGrupaUSessionu = (Grupa) session.getAttribute("odabranaGrupa");
-
-            if (odabranaGrupaUSessionu != null) {
-                Grupa odabranaAzuriranaGrupa = repo.dohvatiGrupuPoIDu(odabranaGrupaUSessionu.getIDGrupa());
-                session.setAttribute("odabranaGrupa", odabranaAzuriranaGrupa);
-            }
-            if (sveGrupe.size() != 0 && odabranaGrupaUSessionu == null) {
-                session.setAttribute("odabranaGrupa", sveGrupe.toArray()[0]);
-            }
-
-           List<Korisnik> sviKorisnici = (List<Korisnik>) azuriranaKompanija.getKorisniciKompanije();
-           Korisnik odabraniKorisnikUSessionu = (Korisnik) session.getAttribute("odabraniKorisnk");
-            
-            if (odabraniKorisnikUSessionu != null) {
-                Korisnik odabraniAzuriraniKorisnik = repo.dohvatiKorisnikaPoIDu(odabraniKorisnikUSessionu.getIDKorisnik());
-                session.setAttribute("odabraniKorisnk", odabraniAzuriraniKorisnik);
-            }
-            
-            if (sviKorisnici.size() != 0 && odabraniKorisnikUSessionu == null) {
-                session.setAttribute("odabraniKorisnk", sviKorisnici.toArray()[0]);
-            }
-
+        UpraviteljKorisnicima upravitelj = new UpraviteljKorisnicima();
+        upravitelj.azurirajKorisnika(request, repo);
+        
+        response.sendRedirect("upravljanjeKorisnicima.jsp");
     }
-response.sendRedirect("upravljanjeKorisnicima.jsp");
-    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
