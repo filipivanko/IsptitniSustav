@@ -6,6 +6,8 @@ import DAO.RepozitorijFactoriy;
 import Model.Admin;
 import Model.Grupa;
 import Model.Kompanija;
+import PoslovnaLogika.DodavacAdminaGrupe;
+import PoslovnaLogika.DodavacAdminaKompanije;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -19,32 +21,12 @@ import javax.servlet.http.HttpSession;
 
 public class DodajAdminaKompanijeServlet extends HttpServlet {
 
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        Kompanija kompanija = (Kompanija)request.getSession().getAttribute("odabranaKompanija");
-        
-         RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
-        Repozitorij repo =repoFactoriy.stvoriRepozitorij();
-        
-        if(kompanija!=null){
-       
-        HttpSession session = request.getSession();
-        
-        String korisnickoIme =request.getParameter("korisnickoImeNoviAdminKompanije");
-        String zaporka = request.getParameter("zaporkaNoviAdminKompanije");
-        
-        Admin noviAdmin = new Admin(korisnickoIme, zaporka,"kompanija",kompanija);
-        kompanija.getAdminiKompanije().add(noviAdmin);
-        
-        repo.otvoriSession();
-        repo.promjeniRucnoBezOtvaranjaIZatvaranja(kompanija);
-        
-        repo.spremiRucnoBezOtvaranjaIZatvaranja(noviAdmin);
-        repo.zatvoriSession();
-              
-        }
+        RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
+        Repozitorij repo = repoFactoriy.stvoriRepozitorij();
+        DodavacAdminaKompanije dodavac = new DodavacAdminaKompanije();
+        dodavac.dodajAdminaKompanije(request, repo);
 
         response.sendRedirect("RootAdminServlet");
     }
