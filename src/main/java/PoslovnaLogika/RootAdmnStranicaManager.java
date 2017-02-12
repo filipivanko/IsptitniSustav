@@ -40,7 +40,7 @@ public class RootAdmnStranicaManager {
             }
         }
     }
-        private List<Admin> izvuciAdmineKompanije(List<Admin> sviAdmini) {
+        public List<Admin> izvuciAdmineKompanije(List<Admin> sviAdmini) {
         List<Admin> adminiKompanija = new ArrayList<Admin>();
         Admin admin;
         for (Object o : sviAdmini) {
