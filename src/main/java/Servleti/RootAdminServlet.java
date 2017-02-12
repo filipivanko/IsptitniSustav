@@ -5,6 +5,7 @@ import DAO.Repozitorij;
 import DAO.RepozitorijFactoriy;
 import Model.Admin;
 import Model.Kompanija;
+import PoslovnaLogika.RootAdmnStranicaManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,38 +19,11 @@ public class RootAdminServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
+
         RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
-        Repozitorij repo =repoFactoriy.stvoriRepozitorij();
-
-        HttpSession session = request.getSession();
-
-        List<Kompanija> sveKompanije = repo.dohvatiSveKompanije();
-        session.setAttribute("sveKompanije", sveKompanije);
-
-        Kompanija odabranaKompanijaUSessionu = (Kompanija) session.getAttribute("odabranaKompanija");
-
-        if (sveKompanije.size() != 0 && odabranaKompanijaUSessionu == null) {
-            session.setAttribute("odabranaKompanija", sveKompanije.get(0));
-
-            List<Admin> adminiSaOvlaštenjemKompanije = izvuciAdmineKompanije(sveKompanije.get(0).getAdminiKompanije());
-            if (session.getAttribute("odabraniAdminKompanija") == null && adminiSaOvlaštenjemKompanije.size() != 0) {
-                session.setAttribute("odabraniAdminKompanija", adminiSaOvlaštenjemKompanije.get(0));
-            }
-        }
-        if (odabranaKompanijaUSessionu != null) {
-            Kompanija odabranaAzuriranaKompanija = repo.dohvatiKompanijuPoIDu(odabranaKompanijaUSessionu.getIDKompanija());
-            session.setAttribute("odabranaKompanija", odabranaAzuriranaKompanija);
-            if (session.getAttribute("odabraniAdminKompanija") != null) {
-                Admin adminUSessionu = (Admin) session.getAttribute("odabraniAdminKompanija");
-                if (adminUSessionu != null) {
-                    Admin azurianiAdmin = repo.dohvatiAdminaPoIDu(adminUSessionu.getIDAdmin());
-                    session.setAttribute("odabraniAdminKompanija", azurianiAdmin);
-                }
-
-            }
-        }
+        Repozitorij repo = repoFactoriy.stvoriRepozitorij();
+        RootAdmnStranicaManager rootAdmninStranica = new RootAdmnStranicaManager();
+        rootAdmninStranica.azurirajRootAdminStranicu(request, repo);
         response.sendRedirect("rootAdminStranica.jsp");
 
     }
@@ -92,18 +66,5 @@ public class RootAdminServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private List<Admin> izvuciAdmineKompanije(List<Admin> sviAdmini) {
-        List<Admin> adminiKompanija = new ArrayList<Admin>();
-        Admin admin;
-        for (Object o : sviAdmini) {
-            admin = (Admin) o;
-            if (admin.getRazinaovlasti().equals("kompanija")) {
-                adminiKompanija.add(admin);
-            }
-
-        }
-        return adminiKompanija;
-    }
 
 }
