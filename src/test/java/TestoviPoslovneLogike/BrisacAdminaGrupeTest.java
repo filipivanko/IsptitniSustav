@@ -26,8 +26,6 @@ public class BrisacAdminaGrupeTest {
         BrisacAdminaGrupe brisac = new BrisacAdminaGrupe();
         brisac.obrisiAdminaGrupe(request, repo);
         
-        RootAdmnStranicaManager rootAdminStranica = new RootAdmnStranicaManager();
-        rootAdminStranica.azurirajRootAdminStranicu(request, repo);
         verify(repo,never()).obrisi(any(Admin.class));
         
     }
@@ -45,8 +43,6 @@ public class BrisacAdminaGrupeTest {
         BrisacAdminaGrupe brisac = new BrisacAdminaGrupe();
         brisac.obrisiAdminaGrupe(request, repo);
         
-        RootAdmnStranicaManager rootAdminStranica = new RootAdmnStranicaManager();
-        rootAdminStranica.azurirajRootAdminStranicu(request, repo);
         verify(repo,times(1)).obrisi(odabraniAdminKompanijeUSessionu);
         
     }
@@ -63,9 +59,6 @@ public class BrisacAdminaGrupeTest {
         
         BrisacAdminaGrupe brisac = new BrisacAdminaGrupe();
         brisac.obrisiAdminaGrupe(request, repo);
-        
-        RootAdmnStranicaManager rootAdminStranica = new RootAdmnStranicaManager();
-        rootAdminStranica.azurirajRootAdminStranicu(request, repo);
        
         verify(session,times(1)).setAttribute("odabraniAdminGrupa",null);
         
