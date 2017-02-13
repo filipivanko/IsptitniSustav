@@ -21,7 +21,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class HibernateRepozitorij implements Repozitorij{
+public class HibernateRepozitorij implements Repozitorij {
 
     SessionFactory sessionFactory;
     Session hibernateSession;
@@ -93,7 +93,13 @@ public class HibernateRepozitorij implements Repozitorij{
         Query query;
         otvoriSession();
         query = hibernateSession.createQuery("from Admin as K where K.korisnickoIme = '" + korisnickoIme + "'");
-        Admin postojeciAdmin = (Admin) query.list().get(0);
+
+        Admin postojeciAdmin;
+        if (query.list().size() > 0) {
+            postojeciAdmin = (Admin) query.list().get(0);
+        } else {
+            postojeciAdmin = null;
+        }
         zatvoriSession();
         return postojeciAdmin;
 
@@ -122,7 +128,13 @@ public class HibernateRepozitorij implements Repozitorij{
         Query query;
         otvoriSession();
         query = hibernateSession.createQuery("from Kompanija as K where K.IDKompanija = '" + IDodabranaKompanija + "'");
-        Kompanija odabranaKompanija = (Kompanija) query.list().get(0);
+        Kompanija odabranaKompanija;
+        if (query.list().size() > 0) {
+            odabranaKompanija = (Kompanija) query.list().get(0);
+        } else {
+
+            odabranaKompanija = null;
+        }
         zatvoriSession();
         return odabranaKompanija;
     }
@@ -131,7 +143,13 @@ public class HibernateRepozitorij implements Repozitorij{
         Query query;
         otvoriSession();
         query = hibernateSession.createQuery("from Admin as K where K.IDAdmin = '" + IDodabraniAdmin + "'");
-        Admin odabraniAdmin = (Admin) query.list().get(0);
+        Admin odabraniAdmin;
+        if (query.list().size() > 0) {
+            odabraniAdmin = (Admin) query.list().get(0);
+        } else {
+            odabraniAdmin = null;
+        }
+
         zatvoriSession();
 
         return odabraniAdmin;
@@ -185,7 +203,7 @@ public class HibernateRepozitorij implements Repozitorij{
                 g.izbaciAdmina(a);
 
             }
-           ArrayList<Ispit> ispitiGrupe = new ArrayList<Ispit>(g.getIspitiGrupe());
+            ArrayList<Ispit> ispitiGrupe = new ArrayList<Ispit>(g.getIspitiGrupe());
             for (Ispit i : ispitiGrupe) {
                 g.izbaciIspit(i);
 
@@ -211,9 +229,9 @@ public class HibernateRepozitorij implements Repozitorij{
     }
 
     private void obrisiSveAdmineUKompaniji(Kompanija kompanija) {
-        ArrayList<Admin> adminiKompanije= new ArrayList<Admin>(kompanija.getAdminiKompanije());
+        ArrayList<Admin> adminiKompanije = new ArrayList<Admin>(kompanija.getAdminiKompanije());
         for (Admin a : adminiKompanije) {
-            ArrayList<Grupa>GrupeKojePripadajuAdminu = new ArrayList(a.getGrupeKojePripadajuAdminu());
+            ArrayList<Grupa> GrupeKojePripadajuAdminu = new ArrayList(a.getGrupeKojePripadajuAdminu());
             for (Grupa g : GrupeKojePripadajuAdminu) {
                 g.izbaciAdmina(a);
             }
@@ -222,9 +240,9 @@ public class HibernateRepozitorij implements Repozitorij{
     }
 
     private void obrisiSveKorisnikeUKompaniji(Kompanija kompanija) {
-      ArrayList<Korisnik> korisniciKompanije= new ArrayList<Korisnik>(kompanija.getKorisniciKompanije());
+        ArrayList<Korisnik> korisniciKompanije = new ArrayList<Korisnik>(kompanija.getKorisniciKompanije());
         for (Korisnik k : korisniciKompanije) {
-ArrayList<Grupa> grupeKojimaPripadaKorisnik = new ArrayList(k.getGrupeKojimaKorisnikPripada());
+            ArrayList<Grupa> grupeKojimaPripadaKorisnik = new ArrayList(k.getGrupeKojimaKorisnikPripada());
             for (Grupa g : grupeKojimaPripadaKorisnik) {
                 g.izbaciKorisnika(k);
             }
@@ -245,8 +263,13 @@ ArrayList<Grupa> grupeKojimaPripadaKorisnik = new ArrayList(k.getGrupeKojimaKori
         Query query;
         otvoriSession();
         query = hibernateSession.createQuery("from Grupa as K where K.IDGrupa = '" + idGrupa + "'");
-        Grupa odabranaGrupa = (Grupa) query.list().get(0);
+        Grupa odabranaGrupa;
+        if (query.list().size() > 0) {
+            odabranaGrupa = (Grupa) query.list().get(0);
+        } else {
+            odabranaGrupa = null;
 
+        }
         zatvoriSession();
         return odabranaGrupa;
     }
@@ -274,7 +297,13 @@ ArrayList<Grupa> grupeKojimaPripadaKorisnik = new ArrayList(k.getGrupeKojimaKori
         Query query;
         otvoriSession();
         query = hibernateSession.createQuery("from Ispit as K where K.IDIspit = '" + IDOdabraniIspit + "'");
-        Ispit odabraniIspit = (Ispit) query.list().get(0);
+        Ispit odabraniIspit;
+        if (query.list().size() > 0) {
+
+            odabraniIspit = (Ispit) query.list().get(0);
+        } else {
+            odabraniIspit = null;
+        }
         zatvoriSession();
         return odabraniIspit;
     }
@@ -293,7 +322,13 @@ ArrayList<Grupa> grupeKojimaPripadaKorisnik = new ArrayList(k.getGrupeKojimaKori
         Query query;
         otvoriSession();
         query = hibernateSession.createQuery("from Pitanje as K where K.IDPitanje = '" + IDodabranoPitanje + "'");
-        Pitanje odabranoPitanje = (Pitanje) query.list().get(0);
+
+        Pitanje odabranoPitanje;
+        if (query.list().size() > 0) {
+            odabranoPitanje = (Pitanje) query.list().get(0);
+        } else {
+            odabranoPitanje = null;
+        }
         zatvoriSession();
         return odabranoPitanje;
     }
@@ -302,7 +337,12 @@ ArrayList<Grupa> grupeKojimaPripadaKorisnik = new ArrayList(k.getGrupeKojimaKori
         Query query;
         otvoriSession();
         query = hibernateSession.createQuery("from GrupaPitanja as K where K.IDGrupaPitanja = '" + idGrupaPitanja + "'");
-        GrupaPitanja odabranaGrupaPitanja = (GrupaPitanja) query.list().get(0);
+        GrupaPitanja odabranaGrupaPitanja;
+        if (query.list().size() > 0) {
+            odabranaGrupaPitanja = (GrupaPitanja) query.list().get(0);
+        } else {
+            odabranaGrupaPitanja = null;
+        }
         zatvoriSession();
         return odabranaGrupaPitanja;
     }
@@ -311,7 +351,12 @@ ArrayList<Grupa> grupeKojimaPripadaKorisnik = new ArrayList(k.getGrupeKojimaKori
         Query query;
         otvoriSession();
         query = hibernateSession.createQuery("from Odgovor as K where K.IDOdgovor = '" + idOdgovor + "'");
-        Odgovor odabraniOdgovor = (Odgovor) query.list().get(0);
+        Odgovor odabraniOdgovor;
+        if (query.list().size() > 0) {
+            odabraniOdgovor = (Odgovor) query.list().get(0);
+        } else {
+            odabraniOdgovor = null;
+        }
         zatvoriSession();
         return odabraniOdgovor;
     }
@@ -353,8 +398,13 @@ ArrayList<Grupa> grupeKojimaPripadaKorisnik = new ArrayList(k.getGrupeKojimaKori
         Query query;
         otvoriSession();
         query = hibernateSession.createQuery("from Korisnik as K where K.IDKorisnik = '" + IDodabraniKorisnik + "'");
-        Korisnik odabraniKorisnik = (Korisnik) query.list().get(0);
 
+        Korisnik odabraniKorisnik;
+        if (query.list().size() > 0) {
+            odabraniKorisnik = (Korisnik) query.list().get(0);
+        } else {
+            odabraniKorisnik = null;
+        }
         zatvoriSession();
         return odabraniKorisnik;
     }
@@ -372,7 +422,13 @@ ArrayList<Grupa> grupeKojimaPripadaKorisnik = new ArrayList(k.getGrupeKojimaKori
         Query query;
         otvoriSession();
         query = hibernateSession.createQuery("from Korisnik as K where K.korisnickoIme = '" + korisnickoIme + "'");
-        Korisnik postojeciKorisnik = (Korisnik) query.list().get(0);
+        Korisnik postojeciKorisnik;
+        if (query.list().size() > 0) {
+            postojeciKorisnik = (Korisnik) query.list().get(0);
+        } else {
+            postojeciKorisnik = null;
+        }
+
         zatvoriSession();
         return postojeciKorisnik;
     }
@@ -390,7 +446,12 @@ ArrayList<Grupa> grupeKojimaPripadaKorisnik = new ArrayList(k.getGrupeKojimaKori
         Query query;
         otvoriSession();
         query = hibernateSession.createQuery("from InstancaIspita as K where K.IDInstancaIspita = '" + idOdabraneInstanceIspita + "'");
-        InstancaIspita instancaIspita= (InstancaIspita) query.list().get(0);
+        InstancaIspita instancaIspita;
+        if (query.list().size() > 0) {
+            instancaIspita = (InstancaIspita) query.list().get(0);
+        } else {
+            instancaIspita = null;
+        }
         zatvoriSession();
         return instancaIspita;
     }
@@ -399,7 +460,13 @@ ArrayList<Grupa> grupeKojimaPripadaKorisnik = new ArrayList(k.getGrupeKojimaKori
         Query query;
         otvoriSession();
         query = hibernateSession.createQuery("from InstancaPitanja as K where K.IDInstancaPitanja = '" + idOdabraneInstancePitanja + "'");
-        InstancaPitanja instancaPitanja= (InstancaPitanja) query.list().get(0);
+        
+        InstancaPitanja instancaPitanja;
+        if(query.list().size()>0){
+        instancaPitanja = (InstancaPitanja) query.list().get(0);
+        }else{
+        instancaPitanja = null;
+        }
         zatvoriSession();
         return instancaPitanja;
     }
@@ -408,7 +475,13 @@ ArrayList<Grupa> grupeKojimaPripadaKorisnik = new ArrayList(k.getGrupeKojimaKori
         Query query;
         otvoriSession();
         query = hibernateSession.createQuery("from InstancaOdgovora as K where K.IDInstancaOdgovora = '" + idOdabraneInstanceOdgovora + "'");
-        InstancaOdgovora instancaOdgovora= (InstancaOdgovora) query.list().get(0);
+        
+        InstancaOdgovora instancaOdgovora ;
+        if(query.list().size()>0){
+        instancaOdgovora = (InstancaOdgovora) query.list().get(0);
+        }else{
+        instancaOdgovora = null;
+        }
         zatvoriSession();
         return instancaOdgovora;
     }
