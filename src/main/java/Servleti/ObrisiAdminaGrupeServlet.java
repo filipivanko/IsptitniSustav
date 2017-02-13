@@ -5,6 +5,7 @@ import DAO.DohvatiRepozitorijFactory;
 import DAO.Repozitorij;
 import DAO.RepozitorijFactoriy;
 import Model.Admin;
+import PoslovnaLogika.BrisacAdminaGrupe;
 import com.sun.corba.se.spi.activation.Repository;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,17 +24,11 @@ public class ObrisiAdminaGrupeServlet extends HttpServlet {
         
          RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
         Repozitorij repo =repoFactoriy.stvoriRepozitorij();
-        
+        BrisacAdminaGrupe brisac = new BrisacAdminaGrupe();
+        brisac.obrisiAdminaGrupe(request, repo);
          
-        Admin odabraniAdmin = (Admin)request.getSession().getAttribute("odabraniAdminGrupa");
-        if(odabraniAdmin!=null){
-        repo.obrisi(odabraniAdmin);
-        
-       request.getSession().setAttribute("odabraniAdminGrupa",null);
-        }
         response.sendRedirect("KompanijaAdminServlet");
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
