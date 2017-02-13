@@ -1,9 +1,11 @@
 package Servleti;
+
 import DAO.DohvatiRepozitorijFactory;
 import DAO.Repozitorij;
 import DAO.RepozitorijFactoriy;
 import Model.Grupa;
 import Model.Kompanija;
+import PoslovnaLogika.OdabirateljGrupe;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,23 +14,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class OdaberiGrupuServlet extends HttpServlet {
-  
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-     if(request.getParameter("IDodabranaGrupa")!=null){
-        
-        int IDodabranaGrupa = Integer.parseInt(request.getParameter("IDodabranaGrupa"));
-        
-         RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
-        Repozitorij repo =repoFactoriy.stvoriRepozitorij();
-        
-        Grupa odabranaGrupa = repo.dohvatiGrupuPoIDu(IDodabranaGrupa);
-        request.getSession().setAttribute("odabranaGrupa", odabranaGrupa);
-     }
+        RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
+        Repozitorij repo = repoFactoriy.stvoriRepozitorij();
+        OdabirateljGrupe odabirac = new  OdabirateljGrupe();
+        odabirac.odaberiGrupu(request, repo);
         response.sendRedirect("KompanijaAdminServlet");
     }
+
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
