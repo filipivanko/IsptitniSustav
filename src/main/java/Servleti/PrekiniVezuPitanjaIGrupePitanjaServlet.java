@@ -6,6 +6,7 @@ import DAO.RepozitorijFactoriy;
 import Model.GrupaPitanja;
 import Model.Ispit;
 import Model.Pitanje;
+import PoslovnaLogika.PrekidacVezeIzmedjuPitanjaIGrupePitanja;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,35 +17,12 @@ public class PrekiniVezuPitanjaIGrupePitanjaServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        GrupaPitanja grupaPitanja = (GrupaPitanja) request.getSession().getAttribute("odabranaGrupaPitanja");
-        Pitanje pitanje = (Pitanje) request.getSession().getAttribute("odabranoPitanje");
-       
         RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
         Repozitorij repo =repoFactoriy.stvoriRepozitorij();
-        
-        if (grupaPitanja != null && pitanje != null) {
-            if (grupaPitanja.provjeriDaLiJePovezaoPitanje(pitanje)) {
-                grupaPitanja.izbaciPitanje(pitanje);
-            }
-            if (pitanje.provjeriDaLiJePovezanaGrupaPitanja(grupaPitanja)) {
-               pitanje.izbaciGrupuPitanja(grupaPitanja);
-            }
-            repo.otvoriSession();
-            repo.promjeniRucnoBezOtvaranjaIZatvaranja(pitanje);
-            repo.promjeniRucnoBezOtvaranjaIZatvaranja(grupaPitanja);
-            repo.zatvoriSession();
-
-            Pitanje azuriranoPitanje = repo.dohvatiPitanjePoIDu(pitanje.getIDPitanje());
-            GrupaPitanja azuriranaGrupaPitanja = repo.dohvatiGrupuPitanjaPoIDu(grupaPitanja.getIDGrupaPitanja());
-
-            request.getSession().setAttribute("odabranaGrupaPitanja", azuriranaGrupaPitanja);
-            request.getSession().setAttribute("odabranoPitanje", azuriranoPitanje);
-        }
-        response.sendRedirect("GrupaPitanjaServlet");
+        PrekidacVezeIzmedjuPitanjaIGrupePitanja prekidac = new PrekidacVezeIzmedjuPitanjaIGrupePitanja();
+     prekidac.prekiniVezuPitanjaIGrupePitanja(request, repo);
+          response.sendRedirect("GrupaPitanjaServlet");
     }
-
-
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 /**
  * Handles the HTTP <code>GET</code> method.
