@@ -3,14 +3,16 @@ package PoslovnaLogika;
 import DAO.Repozitorij;
 import Model.Admin;
 import Model.Kompanija;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class RootAdmnStranicaManager {
+public class AzuriravateljRootAdmnStranica {
 
-    public void azurirajRootAdminStranicu(HttpServletRequest request, Repozitorij repo) {
+    public void azurirajRootAdminStranicu(HttpServletRequest request,HttpServletResponse response, Repozitorij repo) throws IOException {
 
         HttpSession session = request.getSession();
 
@@ -39,6 +41,7 @@ public class RootAdmnStranicaManager {
 
             }
         }
+            response.sendRedirect("rootAdminStranica.jsp");
     }
         private List<Admin> izvuciAdmineKompanije(List<Admin> sviAdmini) {
         List<Admin> adminiKompanija = new ArrayList<Admin>();

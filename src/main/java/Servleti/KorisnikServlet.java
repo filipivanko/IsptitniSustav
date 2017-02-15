@@ -8,6 +8,7 @@ import Model.InstancaIspita;
 import Model.InstancaOdgovora;
 import Model.InstancaPitanja;
 import Model.Korisnik;
+import PoslovnaLogika.AzuriravateljKorisnikStranica;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,35 +26,9 @@ public class KorisnikServlet extends HttpServlet {
    
          RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
         Repozitorij repo =repoFactoriy.stvoriRepozitorij();
-        
-        Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
-        if (korisnik != null) {
-            Korisnik azuriraniKorsinK = repo.dohvatiKorisnikaPoIDu(korisnik.getIDKorisnik());
-            List<InstancaIspita> instanceIspitaKorisnika = repo.dohvatiKorisnikoveInstanceIspita(korisnik);
+        AzuriravateljKorisnikStranica azuriravatelj = new AzuriravateljKorisnikStranica();
+        azuriravatelj.azurirajKorisnikStranicu(request, response, repo);
 
-            List<InstancaIspita> neZavrseniIspiti = new ArrayList<InstancaIspita>();
-            List<InstancaIspita> zavrseniIspiti = new ArrayList<InstancaIspita>();
-
-            azurirajListeIspitaZaIsptieKojimaJeProsaoRok(instanceIspitaKorisnika, repo);
-
-            for (InstancaIspita i : instanceIspitaKorisnika) {
-                if (i.isZavrsen()) {
-                    zavrseniIspiti.add(i);
-
-                } else {
-                    neZavrseniIspiti.add(i);
-                }
-
-            }
-
-            request.getSession().removeAttribute("odabranaInstancaIspita");
-            request.getSession().removeAttribute("odabranaInstancaPitanja");
-            request.getSession().setAttribute("nezavrseniIspiti", neZavrseniIspiti);
-            request.getSession().setAttribute("zavrseniIspiti", zavrseniIspiti);
-
-        }
-
-        response.sendRedirect("korisnikStranica.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -94,27 +69,4 @@ public class KorisnikServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private void azurirajListeIspitaZaIsptieKojimaJeProsaoRok(List<InstancaIspita> instanceIspitaKorisnika, Repozitorij repo) {
-        Date danas = new Date();
-        repo.otvoriSession();
-        for (InstancaIspita i : instanceIspitaKorisnika) {
-            if (danas.after(i.getKrajnjirokIspita())) {
-                i.setZavrsen(true);
-                i.obradiRezultate();
-                for (InstancaGrupePitanja igp : i.getInstanceGrupaPitanja()) {
-                    for (InstancaPitanja p : igp.getInstancePitanja()) {
-                        for (InstancaOdgovora o : p.getInstanceOdgovora()) {
-                            repo.promjeniRucnoBezOtvaranjaIZatvaranja(o);
-                        }
-                        repo.promjeniRucnoBezOtvaranjaIZatvaranja(p);
-                    }
-                    repo.promjeniRucnoBezOtvaranjaIZatvaranja(igp);
-                }
-                repo.promjeniRucnoBezOtvaranjaIZatvaranja(i);
-            }
-        }
-        repo.zatvoriSession();
-    }
-
 }

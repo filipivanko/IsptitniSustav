@@ -13,6 +13,7 @@ import Model.Grupa;
 import Model.Ispit;
 import Model.Kompanija;
 import Model.Korisnik;
+import PoslovnaLogika.AzuriravateljStraniceGrupaAdminStranica;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -30,41 +31,11 @@ public class GrupaAdminPrviDolazakServlet extends HttpServlet {
 
         RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
         Repozitorij repo = repoFactoriy.stvoriRepozitorij();
+        AzuriravateljStraniceGrupaAdminStranica azuriratelj = new AzuriravateljStraniceGrupaAdminStranica();
+        azuriratelj.azurirajGrupaAdminStranicu(request, response, repo);
 
-        HttpSession session = request.getSession();
 
-        Admin odabraniAdminUSessionu = (Admin) session.getAttribute("odabraniAdminGrupa");
-        session.removeAttribute("odabranaGrupa");
-
-        if (odabraniAdminUSessionu != null) {
-            Admin odabraniAzuriraniAdmin = repo.dohvatiAdminaPoIDu(odabraniAdminUSessionu.getIDAdmin());
-            session.setAttribute("odabraniAdminGrupa", odabraniAzuriraniAdmin);
-
-            List<Grupa> sveAdminoveGrupe = odabraniAzuriraniAdmin.getGrupeKojePripadajuAdminu();
-            List<Ispit> sviIspitiGrupe;
-            Grupa odabranaGrupa;
-            if (sveAdminoveGrupe.size() != 0) {
-
-                odabranaGrupa = (Grupa) sveAdminoveGrupe.toArray()[0];
-                session.setAttribute("odabranaGrupa", odabranaGrupa);
-
-                sviIspitiGrupe = odabranaGrupa.getIspitiGrupe();
-
-                List<Korisnik> korisniciGrupe = odabranaGrupa.getClanoviGrupe();
-
-                if (korisniciGrupe.size() != 0) {
-                    session.setAttribute("odabraniKorisnk", korisniciGrupe.toArray()[0]);
-                     request.getSession().setAttribute("korisnik",korisniciGrupe.toArray()[0]);
-                }
-
-                if (sviIspitiGrupe.size() != 0) {
-                    session.setAttribute("odabraniIspit", sviIspitiGrupe.toArray()[0]);
-                }
-            }
-        }
-        response.sendRedirect("grupaAdminStranica.jsp");
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

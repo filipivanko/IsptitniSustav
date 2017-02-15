@@ -7,6 +7,7 @@ import Model.Admin;
 import Model.Grupa;
 import Model.Ispit;
 import Model.Kompanija;
+import PoslovnaLogika.AzuriravateljStraniceKompanijaAdminStranice;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -28,59 +29,9 @@ public class KompanijaAdminServlet extends HttpServlet {
 
         RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
         Repozitorij repo =repoFactoriy.stvoriRepozitorij();
-        
-        HttpSession session = request.getSession();
+        AzuriravateljStraniceKompanijaAdminStranice azuriravatelj = new AzuriravateljStraniceKompanijaAdminStranice();
+        azuriravatelj.azurirajKompanijaAdminStrianicu(request, response, repo);
 
-        Kompanija odabranaKompanijaUSessionu = (Kompanija) session.getAttribute("odabranaKompanija");
-        if (odabranaKompanijaUSessionu != null) {
-
-            Kompanija azuriranaKompanija = repo.dohvatiKompanijuPoIDu(odabranaKompanijaUSessionu.getIDKompanija());
-            List<Grupa> sveGrupe = (List<Grupa>) azuriranaKompanija.getGrupeUKompaniji();
-            session.setAttribute("odabranaKompanija", azuriranaKompanija);
-
-            Grupa odabranaGrupaUSessionu = (Grupa) session.getAttribute("odabranaGrupa");
-
-            if (odabranaGrupaUSessionu != null) {
-                Grupa odabranaAzuriranaGrupa = repo.dohvatiGrupuPoIDu(odabranaGrupaUSessionu.getIDGrupa());
-                session.setAttribute("odabranaGrupa", odabranaAzuriranaGrupa);
-            }
-            if (sveGrupe.size() != 0 && odabranaGrupaUSessionu == null) {
-                session.setAttribute("odabranaGrupa", sveGrupe.toArray()[0]);
-            }
-
-           List<Admin> sviAdmini = (List<Admin>) azuriranaKompanija.getAdminiKompanije();
-            Admin odabraniAdminUSessionu = (Admin) session.getAttribute("odabraniAdminGrupa");
-
-            if (odabraniAdminUSessionu != null) {
-                Admin odabraniAzuriraniAdmin = repo.dohvatiAdminaPoIDu(odabraniAdminUSessionu.getIDAdmin());
-                session.setAttribute("odabraniAdminGrupa", odabraniAzuriraniAdmin);
-            }
-
-            if (sviAdmini.size() != 0 && odabraniAdminUSessionu == null) {
-                List<Admin> adminiGrupa = izvuciAdmineGrupa(sviAdmini);
-
-                if (adminiGrupa.size() != 0) {
-                    session.setAttribute("odabraniAdminGrupa", adminiGrupa.get(0));
-                }
-
-            }
-
-            List<Ispit> sviIspitiKompanije = (List<Ispit>) azuriranaKompanija.getIspitiKompanije();
-            Ispit odabraniIspitUSessionu = (Ispit) session.getAttribute("odabraniIspit");
-
-            if (odabraniIspitUSessionu != null) {
-                Ispit odabraniAzurirniIspit = repo.dohvatiIspitPoIDu(odabraniIspitUSessionu.getIDIspit());
-                session.setAttribute("odabraniIspit", odabraniAzurirniIspit);
-
-            }
-
-            if (sviIspitiKompanije.size() != 0 && odabraniIspitUSessionu == null) {
-                session.setAttribute("odabraniIspit", sviIspitiKompanije.toArray()[0]);
-            }
-
-        }
-
-        response.sendRedirect("kompanijaAdminStranica.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -121,18 +72,4 @@ public class KompanijaAdminServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private List<Admin> izvuciAdmineGrupa(List<Admin> sviAdmini) {
-        List<Admin> adminiGrupa = new ArrayList<Admin>();
-        Admin admin;
-        for (Object o : sviAdmini) {
-            admin = (Admin) o;
-            if (admin.getRazinaovlasti().equals("grupa")) {
-                adminiGrupa.add(admin);
-            }
-
-        }
-        return adminiGrupa;
-    }
-
 }
