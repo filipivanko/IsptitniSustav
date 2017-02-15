@@ -1,10 +1,10 @@
-
 package Servleti;
 
 import DAO.DohvatiRepozitorijFactory;
 import DAO.Repozitorij;
 import DAO.RepozitorijFactoriy;
 import Model.InstancaIspita;
+import PoslovnaLogika.AzuriravateljStraniceDetaljiIspita;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,19 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 
 public class OdaberiZavrseniIspitServlet extends HttpServlet {
 
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     
-         RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
-        Repozitorij repo =repoFactoriy.stvoriRepozitorij();
-        
-        if (request.getParameter("IDZavrsenogIspita") != null) {
-            int idOdabraneInstanceIspita = Integer.parseInt(request.getParameter("IDZavrsenogIspita"));
-            InstancaIspita instancaIspita = repo.dohvatiInstancuIspitaPoIDu(idOdabraneInstanceIspita);
-            request.getSession().setAttribute("odabranaInstancaIspita", instancaIspita);
-        }
-        response.sendRedirect("detaljiIspita.jsp");
+
+        RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
+        Repozitorij repo = repoFactoriy.stvoriRepozitorij();
+        AzuriravateljStraniceDetaljiIspita azuriravac = new AzuriravateljStraniceDetaljiIspita();
+        azuriravac.azurirajInstancuIspita(request, response, repo);
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
