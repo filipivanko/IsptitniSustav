@@ -1,0 +1,232 @@
+
+#headder{
+    width:960px;
+    margin:auto; 
+    margin-top: 20px;
+}
+#footer{
+    width:960px;
+    height:25px;
+    margin:auto;
+    margin-top:5px;
+    background-color:lightgray;
+    clear:left;
+}
+#naslov{
+    position: relative;
+    font-size:64px;
+    margin-bottom:-30px; 
+    z-index: 1;
+    font-family: serif;
+    margin-left:20px; 
+    color:white;
+}
+#pozadinanaslova{
+    height:75px;
+    width:370px;
+    background-color:#444;
+    opacity: 0.7;
+    margin-left: 10px;
+    margin-bottom: -80px;
+    border-radius:8px;
+
+}
+#adminpozadinanaslova{
+    height:75px;
+    width:810px;
+    background-color:#444;
+    opacity: 0.7;
+    margin-left: 10px;
+    margin-bottom: -80px;
+    border-radius:8px;
+
+}
+#naslovnaSlika{
+    z-index: -1;
+}
+#jedansupac{
+    width:960px;
+    height:720px;
+    margin:auto;
+    margin-top:5px;
+    background-color:lightgray;
+    border-radius:20px; 
+    margin-bottom: 0px;
+}
+
+#loginforma{
+    height: 200px;
+    text-align: center;
+    width:360px;
+    margin-left:300px;
+    margin-top:185px;
+    float:left;
+}
+
+#zaporka, #korisnickoIme{
+    width:200px;
+}
+#tablicaZaPrijavu{
+    margin:auto;
+}
+
+#podatciOKorisniku{
+
+    text-align: right;
+    margin-right: 20px;
+}
+#pojedinosti{
+    width: 320px;
+    height: 290px;
+    background-color: white;
+    border-radius: 8px;
+    float: left;  
+    margin-left: 80px;
+    margin-top: 30px;
+}
+#pojedinosti6{
+    width: 300px;
+    height: 290px;
+    background-color: white;
+    border-radius: 8px;
+    float: left;  
+    margin-left: 15px;
+    margin-top: 30px;
+}
+#centrirani{
+    text-align: center;
+}
+select{
+
+    width:120px;
+}
+#ispitBocnaTraka{
+    width:140px;
+    height:660px;
+    margin-top:20px;
+    margin-left: 20px; 
+    background-color:white;
+    float:left; 
+    border-radius: 6px;
+}
+
+#ispitGupaPitanjaBocnaTraka{
+    width:120px;
+    margin-top:10px;
+    margin-left: 10px;
+    background-color:darkgray;
+    border-radius: 4px;
+    text-align: center;
+    float:left;  
+}
+#ispitPitanjeBocnaTraka{
+    width:100px;
+    margin-top:10px;
+    margin-left: 10px;
+    background-color:lightgray;
+    border-radius: 4px;
+     text-align: center;
+    float:left; 
+}
+
+#poljeZaPitanjeIOdgovore{
+    height:660px;
+    width:760px;
+    margin-top: 20px;
+    margin-left: 20px;
+    background-color: white;
+    border-radius: 6px;
+    float:left;   
+}
+
+#prostorZaPitanje{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 740px;
+    border-radius: 4px;
+    background-color: lightgray;
+    
+}
+#prostorZaOdgovore{
+    
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 740px;
+    height: 100px;
+    border-radius: 4px;
+    float:left;  
+}
+
+#zavrseniIspit{
+    magin:10px;
+    width:700px;  
+}
+#odgovori{
+    margin:10px;
+    margin-bottom: 10px;
+    width: 900px;
+    background-color: lightgray;  
+    float:left;
+}
+.GrupaPitanjaZavrseniIspit{
+     margin:10px;
+     margin-bottom: 10px;
+    width: 940px;
+    background-color: darkgray; 
+    float:left;
+}
+
+.pitanjeZavrseniIspit{
+    margin:10px;
+    margin-bottom: 10px;
+    width: 920px;
+    background-color: white;  
+    float:left;
+}
+.odgovorZavrseniIspit{
+    margin:10px;
+    margin-bottom: 10px;
+    background-color:lightgray;
+    float:left;
+    
+}
+#jedansupacZavrseniIspit{
+    width:960px;
+    background-color:lightgray;
+    border-radius:20px; 
+    margin-left:auto;
+    margin-right: auto;
+    float:left;
+}
+#floatKontejner{
+   width:960px;
+   margin:auto;
+    
+}
+
+.deklaracijaTocnostiPitanja{
+    float:left;
+    margin: auto;
+}
+.slikaPitanja{
+    
+    width:400px;
+    height: 300px;
+}
+.slikaPOdgovora{
+     width:40px;
+    height: 30px;
+    
+}
+#pojedinosti2{
+    
+    width: 720px;
+    height: 290px;
+    background-color: white;
+    border-radius: 8px;
+    float: left;  
+    margin-left: 80px;
+    margin-top: 30px;
+    
+    
+}

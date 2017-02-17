@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 public class AzuriravateljRootAdmnStranica {
 
-    public void azurirajRootAdminStranicu(HttpServletRequest request,HttpServletResponse response, Repozitorij repo) throws IOException {
+    public void azurirajRootAdminStranicu(HttpServletRequest request,Repozitorij repo) throws IOException {
 
         HttpSession session = request.getSession();
 
@@ -41,7 +41,7 @@ public class AzuriravateljRootAdmnStranica {
 
             }
         }
-            response.sendRedirect("rootAdminStranica.jsp");
+            
     }
         private List<Admin> izvuciAdmineKompanije(List<Admin> sviAdmini) {
         List<Admin> adminiKompanija = new ArrayList<Admin>();

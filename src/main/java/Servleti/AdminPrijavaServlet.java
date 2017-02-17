@@ -24,6 +24,7 @@ public class AdminPrijavaServlet extends HttpServlet {
         
         PrijavaAdminaUSustav prijava = new PrijavaAdminaUSustav();
         response.sendRedirect(prijava.PrijaviAdmina(request));
+        
     }
 
 

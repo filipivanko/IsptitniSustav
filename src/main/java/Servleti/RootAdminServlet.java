@@ -23,7 +23,8 @@ public class RootAdminServlet extends HttpServlet {
         RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
         Repozitorij repo = repoFactoriy.stvoriRepozitorij();
         AzuriravateljRootAdmnStranica rootAdmninStranica = new AzuriravateljRootAdmnStranica();
-        rootAdmninStranica.azurirajRootAdminStranicu(request,response, repo);
+        rootAdmninStranica.azurirajRootAdminStranicu(request,repo);
+        response.sendRedirect("rootAdminStranica.jsp");
 
     }
 
