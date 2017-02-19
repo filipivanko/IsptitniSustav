@@ -12,7 +12,6 @@ import Model.Korisnik;
 import Model.Odgovor;
 import Model.Pitanje;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,7 +25,15 @@ public class HibernateRepozitorij implements Repozitorij {
     SessionFactory sessionFactory;
     Session hibernateSession;
 
-    public void otvoriSession() {
+    public Session getHibernateSession() {
+		return hibernateSession;
+	}
+
+	public void setHibernateSession(Session hibernateSession) {
+		this.hibernateSession = hibernateSession;
+	}
+
+	public void otvoriSession() {
 
         Configuration configuration = new Configuration().configure();
 

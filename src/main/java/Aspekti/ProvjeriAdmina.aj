@@ -40,7 +40,7 @@ public aspect ProvjeriAdmina {
 			try {
 				response.sendRedirect("adminPrijava.jsp");
 			} catch (Exception ex) {
-
+				 request.getServletContext().log(ex.getStackTrace().toString());
 			}
 		} else {
 
@@ -58,7 +58,7 @@ public aspect ProvjeriAdmina {
 			try {
 				response.sendRedirect("adminPrijava.jsp");
 			} catch (Exception ex) {
-
+				request.getServletContext().log(ex.getStackTrace().toString());
 			}
 		} else {
 
@@ -77,7 +77,7 @@ public aspect ProvjeriAdmina {
 			try {
 				response.sendRedirect("adminPrijava.jsp");
 			} catch (Exception ex) {
-
+				request.getServletContext().log(ex.getStackTrace().toString());
 			}
 		} else {
 
@@ -97,7 +97,7 @@ public aspect ProvjeriAdmina {
 			try {
 				response.sendRedirect("korisnikPrijava.jsp");
 			} catch (Exception ex) {
-
+				request.getServletContext().log(ex.getStackTrace().toString());
 			}
 		} else {
 
