@@ -27,38 +27,8 @@ public class KorisnikServlet extends HttpServlet {
    
          RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
         Repozitorij repo =repoFactoriy.stvoriRepozitorij();
-        
-        Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
-        if (korisnik != null) {
-            PronalazacIzvoraRequesta r = new PronalazacIzvoraRequesta(); 
-            String iz = request.getRequestURI();
-            String s =  r.nadjiIzvor(request);
-            Korisnik azuriraniKorsinK = repo.dohvatiKorisnikaPoIDu(korisnik.getIDKorisnik());
-            List<InstancaIspita> instanceIspitaKorisnika = repo.dohvatiKorisnikoveInstanceIspita(korisnik);
-
-            List<InstancaIspita> neZavrseniIspiti = new ArrayList<InstancaIspita>();
-            List<InstancaIspita> zavrseniIspiti = new ArrayList<InstancaIspita>();
-
-            azurirajListeIspitaZaIsptieKojimaJeProsaoRok(instanceIspitaKorisnika, repo);
-
-            for (InstancaIspita i : instanceIspitaKorisnika) {
-                if (i.isZavrsen()) {
-                    zavrseniIspiti.add(i);
-
-                } else {
-                    neZavrseniIspiti.add(i);
-                }
-
-            }
-
-            request.getSession().removeAttribute("odabranaInstancaIspita");
-            request.getSession().removeAttribute("odabranaInstancaPitanja");
-            request.getSession().setAttribute("nezavrseniIspiti", neZavrseniIspiti);
-            request.getSession().setAttribute("zavrseniIspiti", zavrseniIspiti);
-
-        }
-
-        response.sendRedirect("korisnikStranica.jsp");
+        AzuriravateljKorisnikStranica azuriravatelj = new AzuriravateljKorisnikStranica();
+        azuriravatelj.azurirajKorisnikStranicu(request, response, repo);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

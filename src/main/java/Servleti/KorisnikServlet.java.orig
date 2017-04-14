@@ -28,9 +28,6 @@ public class KorisnikServlet extends HttpServlet {
          RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
         Repozitorij repo =repoFactoriy.stvoriRepozitorij();
 <<<<<<< HEAD
-        AzuriravateljKorisnikStranica azuriravatelj = new AzuriravateljKorisnikStranica();
-        azuriravatelj.azurirajKorisnikStranicu(request, response, repo);
-=======
         
         Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
         if (korisnik != null) {
@@ -39,7 +36,10 @@ public class KorisnikServlet extends HttpServlet {
             String s =  r.nadjiIzvor(request);
             Korisnik azuriraniKorsinK = repo.dohvatiKorisnikaPoIDu(korisnik.getIDKorisnik());
             List<InstancaIspita> instanceIspitaKorisnika = repo.dohvatiKorisnikoveInstanceIspita(korisnik);
->>>>>>> unittestovi
+=======
+        AzuriravateljKorisnikStranica azuriravatelj = new AzuriravateljKorisnikStranica();
+        azuriravatelj.azurirajKorisnikStranicu(request, response, repo);
+>>>>>>> aop
 
     }
 

@@ -4,7 +4,6 @@ import Model.Admin;
 import Model.Grupa;
 import PoslovnaLogika.BrisacAdminaGrupe;
 import PoslovnaLogika.OdabirateljGrupe;
-import PoslovnaLogika.RootAdmnStranicaManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.junit.Test;

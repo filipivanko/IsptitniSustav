@@ -14,13 +14,14 @@ import Model.Kompanija;
 import Model.Korisnik;
 import Model.Odgovor;
 import Model.Pitanje;
+import PoslovnaLogika.PrijavaKorisnikaUSustav;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 
 public class PrijavaServlet extends HttpServlet {
 
@@ -181,5 +182,5 @@ public class PrijavaServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+	
 }
