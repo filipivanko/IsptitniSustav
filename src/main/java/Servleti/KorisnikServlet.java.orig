@@ -1,38 +1,46 @@
-
 package Servleti;
 
 import DAO.DohvatiRepozitorijFactory;
 import DAO.Repozitorij;
 import DAO.RepozitorijFactoriy;
-import Model.Kompanija;
-import com.sun.corba.se.spi.activation.Repository;
+import Helper.PronalazacIzvoraRequesta;
+import Model.InstancaGrupePitanja;
+import Model.InstancaIspita;
+import Model.InstancaOdgovora;
+import Model.InstancaPitanja;
+import Model.Korisnik;
+import PoslovnaLogika.AzuriravateljKorisnikStranica;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-public class ObrisiKompanijuServlet extends HttpServlet {
+public class KorisnikServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
-        Repozitorij repo =repoFactoriy.stvoriRepozitorij();
-        
-       Kompanija odabranaKompanija = (Kompanija)request.getSession().getAttribute("odabranaKompanija");
-       
-       if(odabranaKompanija!=null){
 
-       
-           request.getSession().removeAttribute("odabranaKompanija"); 
-           request.getSession().removeAttribute("odabraniAdminKompanija");
-           repo.obrisiKompaniju(odabranaKompanija);
-           
-      }
-        response.sendRedirect("RootAdminServlet");
+   
+         RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
+        Repozitorij repo =repoFactoriy.stvoriRepozitorij();
+<<<<<<< HEAD
+        AzuriravateljKorisnikStranica azuriravatelj = new AzuriravateljKorisnikStranica();
+        azuriravatelj.azurirajKorisnikStranicu(request, response, repo);
+=======
+        
+        Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+        if (korisnik != null) {
+            PronalazacIzvoraRequesta r = new PronalazacIzvoraRequesta(); 
+            String iz = request.getRequestURI();
+            String s =  r.nadjiIzvor(request);
+            Korisnik azuriraniKorsinK = repo.dohvatiKorisnikaPoIDu(korisnik.getIDKorisnik());
+            List<InstancaIspita> instanceIspitaKorisnika = repo.dohvatiKorisnikoveInstanceIspita(korisnik);
+>>>>>>> unittestovi
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -73,5 +81,4 @@ public class ObrisiKompanijuServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

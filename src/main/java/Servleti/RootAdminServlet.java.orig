@@ -1,38 +1,40 @@
-
 package Servleti;
 
 import DAO.DohvatiRepozitorijFactory;
 import DAO.Repozitorij;
 import DAO.RepozitorijFactoriy;
+import Model.Admin;
 import Model.Kompanija;
-import com.sun.corba.se.spi.activation.Repository;
+<<<<<<< HEAD
+import PoslovnaLogika.AzuriravateljRootAdmnStranica;
+=======
+import PoslovnaLogika.RootAdmnStranicaManager;
+>>>>>>> unittestovi
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-
-public class ObrisiKompanijuServlet extends HttpServlet {
+public class RootAdminServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
-        Repozitorij repo =repoFactoriy.stvoriRepozitorij();
-        
-       Kompanija odabranaKompanija = (Kompanija)request.getSession().getAttribute("odabranaKompanija");
-       
-       if(odabranaKompanija!=null){
 
-       
-           request.getSession().removeAttribute("odabranaKompanija"); 
-           request.getSession().removeAttribute("odabraniAdminKompanija");
-           repo.obrisiKompaniju(odabranaKompanija);
-           
-      }
-        response.sendRedirect("RootAdminServlet");
+        RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
+        Repozitorij repo = repoFactoriy.stvoriRepozitorij();
+<<<<<<< HEAD
+        AzuriravateljRootAdmnStranica rootAdmninStranica = new AzuriravateljRootAdmnStranica();
+        rootAdmninStranica.azurirajRootAdminStranicu(request,response, repo);
+=======
+        RootAdmnStranicaManager rootAdmninStranica = new RootAdmnStranicaManager();
+        rootAdmninStranica.azurirajRootAdminStranicu(request, repo);
+        response.sendRedirect("rootAdminStranica.jsp");
+>>>>>>> unittestovi
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

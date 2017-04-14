@@ -5,7 +5,7 @@ import DAO.Repozitorij;
 import DAO.RepozitorijFactoriy;
 import Model.Admin;
 import Model.Kompanija;
-import PoslovnaLogika.AzuriravateljRootAdmnStranica;
+import PoslovnaLogika.RootAdmnStranicaManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +22,9 @@ public class RootAdminServlet extends HttpServlet {
 
         RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
         Repozitorij repo = repoFactoriy.stvoriRepozitorij();
-        AzuriravateljRootAdmnStranica rootAdmninStranica = new AzuriravateljRootAdmnStranica();
-        rootAdmninStranica.azurirajRootAdminStranicu(request,response, repo);
+        RootAdmnStranicaManager rootAdmninStranica = new RootAdmnStranicaManager();
+        rootAdmninStranica.azurirajRootAdminStranicu(request, repo);
+        response.sendRedirect("rootAdminStranica.jsp");
 
     }
 
@@ -65,5 +66,18 @@ public class RootAdminServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private List<Admin> izvuciAdmineKompanije(List<Admin> sviAdmini) {
+        List<Admin> adminiKompanija = new ArrayList<Admin>();
+        Admin admin;
+        for (Object o : sviAdmini) {
+            admin = (Admin) o;
+            if (admin.getRazinaovlasti().equals("kompanija")) {
+                adminiKompanija.add(admin);
+            }
+
+        }
+        return adminiKompanija;
+    }
 
 }

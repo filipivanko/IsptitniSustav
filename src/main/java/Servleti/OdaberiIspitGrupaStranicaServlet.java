@@ -1,4 +1,3 @@
-
 package Servleti;
 
 import DAO.DohvatiRepozitorijFactory;
@@ -6,28 +5,24 @@ import DAO.Repozitorij;
 import DAO.RepozitorijFactoriy;
 import Model.Ispit;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 public class OdaberiIspitGrupaStranicaServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    if (request.getParameter("IDodabraniIspit") != null) {
+        
+        if (request.getParameter("IDodabraniIspit") != null) {
 
             int IDodabranaiIspit = Integer.parseInt(request.getParameter("IDodabraniIspit"));
-            
-             RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
-        Repozitorij repo =repoFactoriy.stvoriRepozitorij();
-            
+            RepozitorijFactoriy repoFactoriy = DohvatiRepozitorijFactory.dohvati();
+            Repozitorij repo = repoFactoriy.stvoriRepozitorij();
             Ispit ispit = repo.dohvatiIspitPoIDu(IDodabranaiIspit);
             request.getSession().setAttribute("odabraniIspit", ispit);
         }
-    
         response.sendRedirect("GrupaAdminServlet");
     }
 

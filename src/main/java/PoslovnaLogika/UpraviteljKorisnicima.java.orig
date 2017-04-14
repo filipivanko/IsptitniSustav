@@ -1,0 +1,49 @@
+package PoslovnaLogika;
+
+import DAO.Repozitorij;
+import Model.Grupa;
+import Model.Kompanija;
+import Model.Korisnik;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+public class UpraviteljKorisnicima {
+     public void azurirajKorisnika(HttpServletRequest request,Repozitorij repo){
+    
+       HttpSession session = request.getSession();
+       Kompanija odabranaKompanijaUSessionu = (Kompanija) session.getAttribute("odabranaKompanija");
+        if (odabranaKompanijaUSessionu != null) {
+
+            Kompanija azuriranaKompanija = repo.dohvatiKompanijuPoIDu(odabranaKompanijaUSessionu.getIDKompanija());
+            List<Grupa> sveGrupe = (List<Grupa>) azuriranaKompanija.getGrupeUKompaniji();
+            session.setAttribute("odabranaKompanija", azuriranaKompanija);
+
+            Grupa odabranaGrupaUSessionu = (Grupa) session.getAttribute("odabranaGrupa");
+
+<<<<<<< HEAD
+            if (odabranaGrupaUSessionu != null) {
+=======
+            if (odabranaGrupaUSessionu != null){
+>>>>>>> unittestovi
+                Grupa odabranaAzuriranaGrupa = repo.dohvatiGrupuPoIDu(odabranaGrupaUSessionu.getIDGrupa());
+                session.setAttribute("odabranaGrupa", odabranaAzuriranaGrupa);
+            }
+            if (sveGrupe.size() != 0 && odabranaGrupaUSessionu == null) {
+                session.setAttribute("odabranaGrupa", sveGrupe.toArray()[0]);
+            }
+
+           List<Korisnik> sviKorisnici = (List<Korisnik>) azuriranaKompanija.getKorisniciKompanije();
+           Korisnik odabraniKorisnikUSessionu = (Korisnik) session.getAttribute("odabraniKorisnk");
+            
+            if (odabraniKorisnikUSessionu != null) {
+                Korisnik odabraniAzuriraniKorisnik = repo.dohvatiKorisnikaPoIDu(odabraniKorisnikUSessionu.getIDKorisnik());
+                session.setAttribute("odabraniKorisnk", odabraniAzuriraniKorisnik);
+            }
+            
+            if (sviKorisnici.size() != 0 && odabraniKorisnikUSessionu == null) {
+                session.setAttribute("odabraniKorisnk", sviKorisnici.toArray()[0]);
+            }
+        }
+    }
+}
