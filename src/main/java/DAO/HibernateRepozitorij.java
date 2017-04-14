@@ -30,7 +30,7 @@ public class HibernateRepozitorij implements Repozitorij {
 
         Configuration configuration = new Configuration().configure();
 
-        sessionFactory = configuration.buildSessionFactory();
+        sessionFactory = HibernateSessionFactorySingleton.getInstance();
         hibernateSession = sessionFactory.openSession();
         hibernateSession.beginTransaction();
     }
